@@ -10,7 +10,7 @@ body {
 
 #app {
   height: 100vh;
-  background: pink;
+  background: @bgcolor;
 }
 
 header {
@@ -42,7 +42,6 @@ header {
 }
 .container {
   display: flex;
-  background: pink;
   justify-content: space-between;
   .aside {
     height: calc(100vh - 140px);
@@ -51,6 +50,13 @@ header {
     flex: 1;
     box-sizing: border-box;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    .container_content {
+      flex: 1;
+      height: 100%;
+      background-color: #fff;
+    }
   }
 }
 
