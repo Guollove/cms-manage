@@ -3,9 +3,11 @@ import { List, Button, Skeleton, Pagination } from "antd";
 import { ArticleListApi } from "../request/api";
 import moment from "moment";
 import "./less/List.less";
+import { useNavigate } from "react-router-dom";
 
 export default function Lists() {
   const [list, setList] = useState([]);
+  const navigate = useNavigate();
   const [total, setTotal] = useState(0);
   const [current, setCorrent] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -44,7 +46,10 @@ export default function Lists() {
         renderItem={(item) => (
           <List.Item
             actions={[
-              <Button type="primary" onClick={() => console.log(item.id)}>
+              <Button
+                type="primary"
+                onClick={() => navigate("/edit/" + item.id)}
+              >
                 编辑
               </Button>,
               <Button type="danger" onClick={() => console.log(item.id)}>

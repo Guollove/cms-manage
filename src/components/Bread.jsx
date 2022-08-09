@@ -23,6 +23,7 @@ export default function Bread() {
         break;
 
       default:
+        setBreadName(pathname.includes("edit") ? "文章编辑" : "");
         break;
     }
   }, [pathname]);
