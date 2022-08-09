@@ -19,3 +19,7 @@ export const ArticleSearchApi = (params) =>
 //重新编辑文章
 export const ArticleUpdateApi = (params) =>
   request.put("/article/update", params);
+
+//删除文章
+export const ArticleDelApi = (params) =>
+  request.post("/article/remove", params);

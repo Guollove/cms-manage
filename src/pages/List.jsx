@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { List, Button, Skeleton, Pagination } from "antd";
-import { ArticleListApi } from "../request/api";
+import { List, Button, Skeleton, Pagination, message } from "antd";
+import { ArticleListApi, ArticleDelApi } from "../request/api";
 import moment from "moment";
 import "./less/List.less";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 export default function Lists() {
   const [list, setList] = useState([]);
   const navigate = useNavigate();
+  const [update, setUpdate] = useState(1);
   const [total, setTotal] = useState(0);
   const [current, setCorrent] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -31,10 +32,21 @@ export default function Lists() {
   //请求列表数据
   useEffect(() => {
     getList(current);
-  }, []);
+  }, [update]);
 
+  //分页
   const onChange = (pages) => {
     getList(pages);
+  };
+
+  //删除
+  const delFn = (id) => {
+    ArticleDelApi({ id }).then((res) => {
+      if (res.errCode === 0) {
+        message.success(res.message);
+        setUpdate(update + 1);
+      }
+    });
   };
 
   return (
@@ -52,7 +64,7 @@ export default function Lists() {
               >
                 编辑
               </Button>,
-              <Button type="danger" onClick={() => console.log(item.id)}>
+              <Button type="danger" onClick={() => delFn(item.id)}>
                 删除
               </Button>,
             ]}
