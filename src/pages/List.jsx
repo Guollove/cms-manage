@@ -54,7 +54,11 @@ export default function Lists() {
           >
             <Skeleton loading={false} title={false}>
               <List.Item.Meta
-                title={<a href="!#">{item.title}</a>}
+                title={
+                  <a href={"http://codesohigh.com:8765/article/" + item.id}>
+                    {item.title}
+                  </a>
+                }
                 description={item.subTitle}
               />
               <div>{moment(item.date).format("YYYY-MM-DD hh:mm:ss")}</div>

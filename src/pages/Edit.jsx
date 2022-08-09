@@ -3,14 +3,26 @@ import { useState } from "react";
 import { Button, PageHeader, Modal, Form, Input } from "antd";
 import moment from "moment";
 import E from "wangeditor";
+import { ArticleAddApi } from "../request/api";
 
 let editor;
 export default function Edit() {
   const [content, setContent] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [form] = Form.useForm();
 
+  //对话框点击了提交
   const handleOk = () => {
-    setIsModalVisible(false);
+    //关闭对话框
+    // setIsModalVisible(false);
+    form
+      .validateFields()
+      .then((values) => {
+        // form.resetFields();
+        let { title, subTitle } = values;
+        ArticleAddApi({ title, subTitle, content }).then((res) => {});
+      })
+      .catch(() => false);
   };
 
   //模拟componentDidMount
@@ -50,6 +62,8 @@ export default function Edit() {
         style={{ padding: "0 20px 20px", background: "#fff" }}
       ></div>
       <Modal
+        okText="提交"
+        cancelText="取消"
         zIndex={99999}
         title="填写文章标题"
         visible={isModalVisible}
@@ -59,6 +73,7 @@ export default function Edit() {
         }}
       >
         <Form
+          form={form}
           name="basic"
           labelCol={{
             span: 3,
