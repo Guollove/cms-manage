@@ -14,14 +14,14 @@ export default function Header() {
   //模拟componentDidMount
   useEffect(() => {
     let username1 = localStorage.getItem("username");
-    let avatar1 = localStorage.getItem("avatar1");
+    let avatar1 = localStorage.getItem("avatar");
     if (username1) {
       setUsername(username1);
     }
     if (avatar1) {
       setAvatar("http://47.93.114.103:6688/" + avatar1);
     }
-  }, []);
+  }, [localStorage.getItem("avatar")]);
 
   //退出登录
   const logout = () => {
